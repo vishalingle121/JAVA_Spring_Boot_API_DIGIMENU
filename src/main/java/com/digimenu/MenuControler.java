@@ -139,4 +139,31 @@ public class MenuControler {
 			    return response;
 			}
 			
+//----------------Menu List in menu page------------------------
+			
+			@GetMapping("/menudatalst")
+			public Map<String, Object> getmenulst() {
+			    List<Object[]> rawData = mrepo.lstMenu();
+			    List<Map<String, Object>> dls = new ArrayList<>();
+
+			    for (Object[] record : rawData) {
+			        Map<String, Object> map = new HashMap<>();
+			        map.put("mid", record[0]);
+			        map.put("gname", record[1]);
+			        map.put("mname", record[2]);
+			        map.put("mprice", record[3]);
+			        map.put("qtytype", record[4]);
+			        map.put("gid", record[5]);
+			        map.put("qid", record[6]);
+			        dls.add(map);
+			    }
+
+			    // Create the final JSON response
+			    Map<String, Object> response = new LinkedHashMap<>();
+			    response.put("status", 200);   // Adds "status" first
+			    response.put("Menudata", dls);    // Adds "VList" second
+
+			    return response;
+			}
+			
 }
